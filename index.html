@@ -9,13 +9,18 @@
 
 <body>
 
-<a-scene>
+<a-scene cursor="rayOrigin: mouse">
 
-<!-- Камера + контролер -->
-<a-entity camera position="0 1.6 0" look-controls></a-entity>
-<a-entity laser-controls="hand: right"></a-entity>
+<!-- Камера + курсор -->
+<a-entity camera position="0 1.6 0" look-controls>
+    <a-cursor></a-cursor>
+</a-entity>
 
-<!-- ПАНЕЛ -->
+<!-- Контролер -->
+<a-entity laser-controls="hand: right"
+          raycaster="objects: .clickable"></a-entity>
+
+<!-- Панел -->
 <a-plane position="0 1.6 -2" width="1.6" height="1.2" color="#1a1a1a"></a-plane>
 
 <!-- TITLE -->
@@ -26,42 +31,32 @@
         color="white">
 </a-text>
 
-<!-- ROW FUNCTION -->
 <!-- WEIGHT -->
 <a-text id="weightText" value="Weight: 70"
         position="-0.6 1.8 -2"
         scale="0.4 0.4 0.4"></a-text>
 
-<a-box id="wPlus" position="0.4 1.8 -2" width="0.15" height="0.15" depth="0.1" color="#2ecc71"></a-box>
-<a-text value="+" position="0.4 1.8 -1.9" align="center" scale="0.4 0.4 0.4"></a-text>
-
-<a-box id="wMinus" position="0.65 1.8 -2" width="0.15" height="0.15" depth="0.1" color="#e74c3c"></a-box>
-<a-text value="-" position="0.65 1.8 -1.9" align="center" scale="0.4 0.4 0.4"></a-text>
+<a-box id="wPlus" class="clickable" position="0.4 1.8 -2" width="0.15" height="0.15" depth="0.1" color="#2ecc71"></a-box>
+<a-box id="wMinus" class="clickable" position="0.65 1.8 -2" width="0.15" height="0.15" depth="0.1" color="#e74c3c"></a-box>
 
 <!-- HEIGHT -->
 <a-text id="heightText" value="Height: 170"
         position="-0.6 1.6 -2"
         scale="0.4 0.4 0.4"></a-text>
 
-<a-box id="hPlus" position="0.4 1.6 -2" width="0.15" height="0.15" depth="0.1" color="#2ecc71"></a-box>
-<a-box id="hMinus" position="0.65 1.6 -2" width="0.15" height="0.15" depth="0.1" color="#e74c3c"></a-box>
-
-<a-text value="+" position="0.4 1.6 -1.9" scale="0.4 0.4 0.4"></a-text>
-<a-text value="-" position="0.65 1.6 -1.9" scale="0.4 0.4 0.4"></a-text>
+<a-box id="hPlus" class="clickable" position="0.4 1.6 -2" width="0.15" height="0.15" depth="0.1" color="#2ecc71"></a-box>
+<a-box id="hMinus" class="clickable" position="0.65 1.6 -2" width="0.15" height="0.15" depth="0.1" color="#e74c3c"></a-box>
 
 <!-- AGE -->
 <a-text id="ageText" value="Age: 25"
         position="-0.6 1.4 -2"
         scale="0.4 0.4 0.4"></a-text>
 
-<a-box id="aPlus" position="0.4 1.4 -2" width="0.15" height="0.15" depth="0.1" color="#2ecc71"></a-box>
-<a-box id="aMinus" position="0.65 1.4 -2" width="0.15" height="0.15" depth="0.1" color="#e74c3c"></a-box>
+<a-box id="aPlus" class="clickable" position="0.4 1.4 -2" width="0.15" height="0.15" depth="0.1" color="#2ecc71"></a-box>
+<a-box id="aMinus" class="clickable" position="0.65 1.4 -2" width="0.15" height="0.15" depth="0.1" color="#e74c3c"></a-box>
 
-<a-text value="+" position="0.4 1.4 -1.9" scale="0.4 0.4 0.4"></a-text>
-<a-text value="-" position="0.65 1.4 -1.9" scale="0.4 0.4 0.4"></a-text>
-
-<!-- CALCULATE BUTTON -->
-<a-box id="calcBtn"
+<!-- CALCULATE -->
+<a-box id="calcBtn" class="clickable"
        position="0 1.1 -2"
        width="0.7"
        height="0.2"
@@ -96,20 +91,20 @@ document.getElementById("heightText").setAttribute("value","Height: "+height);
 document.getElementById("ageText").setAttribute("value","Age: "+age);
 }
 
-document.getElementById("wPlus").onclick=()=>{weight++;update();}
-document.getElementById("wMinus").onclick=()=>{weight--;update();}
+document.getElementById("wPlus").addEventListener("click",()=>{weight++;update();});
+document.getElementById("wMinus").addEventListener("click",()=>{weight--;update();});
 
-document.getElementById("hPlus").onclick=()=>{height++;update();}
-document.getElementById("hMinus").onclick=()=>{height--;update();}
+document.getElementById("hPlus").addEventListener("click",()=>{height++;update();});
+document.getElementById("hMinus").addEventListener("click",()=>{height--;update();});
 
-document.getElementById("aPlus").onclick=()=>{age++;update();}
-document.getElementById("aMinus").onclick=()=>{age--;update();}
+document.getElementById("aPlus").addEventListener("click",()=>{age++;update();});
+document.getElementById("aMinus").addEventListener("click",()=>{age--;update();});
 
-document.getElementById("calcBtn").onclick=()=>{
+document.getElementById("calcBtn").addEventListener("click",()=>{
 let calories=10*weight+6.25*height-5*age+5;
 document.getElementById("resultText")
 .setAttribute("value","Calories: "+Math.round(calories));
-}
+});
 
 </script>
 
