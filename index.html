@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>VR Calorie App</title>
+<title>VR Calorie Calculator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
@@ -15,41 +15,102 @@
     <!-- Камера -->
     <a-entity camera position="0 1.6 0" look-controls></a-entity>
 
-    <!-- Панел -->
-    <a-plane position="0 1.6 -2" width="1.5" height="1" color="#222"></a-plane>
+    <!-- Контролер -->
+    <a-entity laser-controls="hand: right"></a-entity>
 
-    <!-- Текст -->
+    <!-- Панел -->
+    <a-plane position="0 1.6 -2" width="1.6" height="1.2" color="#222"></a-plane>
+
+    <!-- Заглавие -->
     <a-text value="Calorie Calculator"
             position="0 2 -2"
             align="center"
             color="white">
     </a-text>
 
-    <!-- Бутон -->
-    <a-box position="0 1.5 -2"
-           depth="0.1"
-           height="0.2"
+    <!-- WEIGHT -->
+    <a-text id="weightText" value="Weight: 70"
+            position="-0.5 1.8 -2"
+            color="white"></a-text>
+
+    <a-box id="wPlus" position="0.6 1.8 -2" width="0.2" height="0.2" depth="0.1" color="green"></a-box>
+    <a-text value="+" position="0.6 1.8 -1.9" align="center"></a-text>
+
+    <a-box id="wMinus" position="0.9 1.8 -2" width="0.2" height="0.2" depth="0.1" color="red"></a-box>
+    <a-text value="-" position="0.9 1.8 -1.9" align="center"></a-text>
+
+    <!-- HEIGHT -->
+    <a-text id="heightText" value="Height: 170"
+            position="-0.5 1.6 -2"
+            color="white"></a-text>
+
+    <a-box id="hPlus" position="0.6 1.6 -2" width="0.2" height="0.2" depth="0.1" color="green"></a-box>
+    <a-text value="+" position="0.6 1.6 -1.9"></a-text>
+
+    <a-box id="hMinus" position="0.9 1.6 -2" width="0.2" height="0.2" depth="0.1" color="red"></a-box>
+    <a-text value="-" position="0.9 1.6 -1.9"></a-text>
+
+    <!-- AGE -->
+    <a-text id="ageText" value="Age: 25"
+            position="-0.5 1.4 -2"
+            color="white"></a-text>
+
+    <a-box id="aPlus" position="0.6 1.4 -2" width="0.2" height="0.2" depth="0.1" color="green"></a-box>
+    <a-text value="+" position="0.6 1.4 -1.9"></a-text>
+
+    <a-box id="aMinus" position="0.9 1.4 -2" width="0.2" height="0.2" depth="0.1" color="red"></a-box>
+    <a-text value="-" position="0.9 1.4 -1.9"></a-text>
+
+    <!-- BUTTON -->
+    <a-box id="calcBtn"
+           position="0 1.1 -2"
            width="0.6"
-           color="blue"
-           class="clickable"
-           id="btn">
-    </a-box>
+           height="0.25"
+           depth="0.1"
+           color="blue"></a-box>
 
     <a-text value="Calculate"
-            position="0 1.5 -1.9"
-            align="center"
-            color="white">
-    </a-text>
+            position="0 1.1 -1.9"
+            align="center"></a-text>
 
-    <!-- Контролери -->
-    <a-entity laser-controls="hand: right"></a-entity>
+    <!-- RESULT -->
+    <a-text id="resultText"
+            value="Calories: 0"
+            position="0 0.8 -2"
+            align="center"
+            color="yellow"></a-text>
 
 </a-scene>
 
 <script>
-document.querySelector("#btn").addEventListener("click", () => {
-    alert("Работи във VR!");
+
+let weight = 70;
+let height = 170;
+let age = 25;
+
+function updateUI() {
+    document.getElementById("weightText").setAttribute("value", "Weight: " + weight);
+    document.getElementById("heightText").setAttribute("value", "Height: " + height);
+    document.getElementById("ageText").setAttribute("value", "Age: " + age);
+}
+
+document.getElementById("wPlus").addEventListener("click", () => { weight++; updateUI(); });
+document.getElementById("wMinus").addEventListener("click", () => { weight--; updateUI(); });
+
+document.getElementById("hPlus").addEventListener("click", () => { height++; updateUI(); });
+document.getElementById("hMinus").addEventListener("click", () => { height--; updateUI(); });
+
+document.getElementById("aPlus").addEventListener("click", () => { age++; updateUI(); });
+document.getElementById("aMinus").addEventListener("click", () => { age--; updateUI(); });
+
+document.getElementById("calcBtn").addEventListener("click", () => {
+
+    let calories = 10*weight + 6.25*height - 5*age + 5;
+
+    document.getElementById("resultText")
+        .setAttribute("value", "Calories: " + Math.round(calories));
 });
+
 </script>
 
 </body>
