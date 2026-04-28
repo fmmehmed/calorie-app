@@ -1,145 +1,55 @@
 <!DOCTYPE html>
-<html lang="bg">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Калориен Калкулатор</title>
+<meta charset="utf-8">
+<title>VR Calorie App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body {
-    font-family: Arial;
-    background: #1e1e1e;
-    color: white;
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-}
-
-.container {
-    width: 300px;
-}
-
-input, select, button {
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-}
-
-button {
-    background: #2196F3;
-    color: white;
-    cursor: pointer;
-}
-
-.progress {
-    height: 10px;
-    background: gray;
-    margin-top: 10px;
-}
-
-.progress-bar {
-    height: 10px;
-    background: lime;
-    width: 0%;
-}
-</style>
+<script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
 </head>
 
 <body>
 
-<div class="container">
-    <h2>Калориен Калкулатор</h2>
+<a-scene>
 
-    <input id="age" placeholder="Възраст">
-    <input id="weight" placeholder="Тегло">
-    <input id="height" placeholder="Височина">
+    <!-- Камера -->
+    <a-entity camera position="0 1.6 0" look-controls></a-entity>
 
-    <select id="gender">
-        <option>Male</option>
-        <option>Female</option>
-    </select>
+    <!-- Панел -->
+    <a-plane position="0 1.6 -2" width="1.5" height="1" color="#222"></a-plane>
 
-    <select id="activity">
-        <option>Заседнал</option>
-        <option>Лека активност</option>
-        <option>Умерена</option>
-        <option>Висока</option>
-    </select>
+    <!-- Текст -->
+    <a-text value="Calorie Calculator"
+            position="0 2 -2"
+            align="center"
+            color="white">
+    </a-text>
 
-    <select id="goal">
-        <option>Поддържане</option>
-        <option>Отслабване</option>
-        <option>Качване</option>
-    </select>
+    <!-- Бутон -->
+    <a-box position="0 1.5 -2"
+           depth="0.1"
+           height="0.2"
+           width="0.6"
+           color="blue"
+           class="clickable"
+           id="btn">
+    </a-box>
 
-    <button onclick="calculate()">Изчисли</button>
+    <a-text value="Calculate"
+            position="0 1.5 -1.9"
+            align="center"
+            color="white">
+    </a-text>
 
-    <p id="result">Резултат:</p>
+    <!-- Контролери -->
+    <a-entity laser-controls="hand: right"></a-entity>
 
-    <h3>Храна</h3>
-    <select id="food">
-        <option value="200">Пиле</option>
-        <option value="300">Ориз</option>
-        <option value="150">Яйца</option>
-    </select>
-
-    <button onclick="addFood()">Добави</button>
-
-    <p id="foodTotal">Калории: 0</p>
-
-    <div class="progress">
-        <div id="bar" class="progress-bar"></div>
-    </div>
-</div>
+</a-scene>
 
 <script>
-let targetCalories = 0;
-let foodCalories = 0;
-
-function calculate() {
-    let age = +document.getElementById("age").value;
-    let weight = +document.getElementById("weight").value;
-    let height = +document.getElementById("height").value;
-
-    let gender = document.getElementById("gender").value;
-    let activity = document.getElementById("activity").value;
-    let goal = document.getElementById("goal").value;
-
-    let bmr = (gender === "Male")
-        ? 10*weight + 6.25*height - 5*age + 5
-        : 10*weight + 6.25*height - 5*age - 161;
-
-    let factor = 1.2;
-
-    if (activity === "Лека активност") factor = 1.375;
-    if (activity === "Умерена") factor = 1.55;
-    if (activity === "Висока") factor = 1.725;
-
-    let calories = bmr * factor;
-
-    if (goal === "Отслабване") calories -= 500;
-    if (goal === "Качване") calories += 500;
-
-    targetCalories = calories;
-    foodCalories = 0;
-
-    document.getElementById("result").innerText =
-        "Калории: " + Math.round(calories);
-}
-
-function addFood() {
-    let food = document.getElementById("food");
-    let value = +food.value;
-
-    foodCalories += value;
-
-    document.getElementById("foodTotal").innerText =
-        "Изядени: " + foodCalories;
-
-    let percent = Math.min((foodCalories / targetCalories) * 100, 100);
-    document.getElementById("bar").style.width = percent + "%";
-}
+document.querySelector("#btn").addEventListener("click", () => {
+    alert("Работи във VR!");
+});
 </script>
 
 </body>
