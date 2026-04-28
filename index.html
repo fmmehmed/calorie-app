@@ -11,50 +11,101 @@
 
 <a-scene cursor="rayOrigin: mouse">
 
-<!-- Камера + курсор -->
+<!-- Камера -->
 <a-entity camera position="0 1.6 0" look-controls>
-    <a-cursor></a-cursor>
+    <a-cursor fuse="true" fuse-timeout="800"></a-cursor>
 </a-entity>
 
 <!-- Контролер -->
 <a-entity laser-controls="hand: right"
-          raycaster="objects: .clickable"
-          cursor="fuse: false">
-</a-entity>
+          raycaster="objects: .clickable"></a-entity>
+
 <!-- Панел -->
 <a-plane position="0 1.6 -2" width="1.6" height="1.2" color="#1a1a1a"></a-plane>
 
-<!-- TITLE -->
+<!-- Заглавие -->
 <a-text value="Calorie App"
         position="0 2 -2"
         align="center"
         scale="0.6 0.6 0.6"
-        color="white">
-</a-text>
+        color="white"></a-text>
 
 <!-- WEIGHT -->
 <a-text id="weightText" value="Weight: 70"
         position="-0.6 1.8 -2"
         scale="0.4 0.4 0.4"></a-text>
 
-<a-box id="wPlus" class="clickable" position="0.4 1.8 -2" width="0.15" height="0.15" depth="0.1" color="#2ecc71"></a-box>
-<a-box id="wMinus" class="clickable" position="0.65 1.8 -2" width="0.15" height="0.15" depth="0.1" color="#e74c3c"></a-box>
+<a-box id="wPlus" class="clickable"
+       position="0.4 1.8 -2"
+       width="0.15" height="0.15" depth="0.1"
+       color="#2ecc71"></a-box>
+
+<a-text value="+"
+        position="0.4 1.8 -1.85"
+        align="center"
+        scale="0.5 0.5 0.5"
+        color="white"></a-text>
+
+<a-box id="wMinus" class="clickable"
+       position="0.65 1.8 -2"
+       width="0.15" height="0.15" depth="0.1"
+       color="#e74c3c"></a-box>
+
+<a-text value="-"
+        position="0.65 1.8 -1.85"
+        align="center"
+        scale="0.5 0.5 0.5"
+        color="white"></a-text>
 
 <!-- HEIGHT -->
 <a-text id="heightText" value="Height: 170"
         position="-0.6 1.6 -2"
         scale="0.4 0.4 0.4"></a-text>
 
-<a-box id="hPlus" class="clickable" position="0.4 1.6 -2" width="0.15" height="0.15" depth="0.1" color="#2ecc71"></a-box>
-<a-box id="hMinus" class="clickable" position="0.65 1.6 -2" width="0.15" height="0.15" depth="0.1" color="#e74c3c"></a-box>
+<a-box id="hPlus" class="clickable"
+       position="0.4 1.6 -2"
+       width="0.15" height="0.15" depth="0.1"
+       color="#2ecc71"></a-box>
+
+<a-text value="+"
+        position="0.4 1.6 -1.85"
+        scale="0.5 0.5 0.5"
+        align="center"></a-text>
+
+<a-box id="hMinus" class="clickable"
+       position="0.65 1.6 -2"
+       width="0.15" height="0.15" depth="0.1"
+       color="#e74c3c"></a-box>
+
+<a-text value="-"
+        position="0.65 1.6 -1.85"
+        scale="0.5 0.5 0.5"
+        align="center"></a-text>
 
 <!-- AGE -->
 <a-text id="ageText" value="Age: 25"
         position="-0.6 1.4 -2"
         scale="0.4 0.4 0.4"></a-text>
 
-<a-box id="aPlus" class="clickable" position="0.4 1.4 -2" width="0.15" height="0.15" depth="0.1" color="#2ecc71"></a-box>
-<a-box id="aMinus" class="clickable" position="0.65 1.4 -2" width="0.15" height="0.15" depth="0.1" color="#e74c3c"></a-box>
+<a-box id="aPlus" class="clickable"
+       position="0.4 1.4 -2"
+       width="0.15" height="0.15" depth="0.1"
+       color="#2ecc71"></a-box>
+
+<a-text value="+"
+        position="0.4 1.4 -1.85"
+        scale="0.5 0.5 0.5"
+        align="center"></a-text>
+
+<a-box id="aMinus" class="clickable"
+       position="0.65 1.4 -2"
+       width="0.15" height="0.15" depth="0.1"
+       color="#e74c3c"></a-box>
+
+<a-text value="-"
+        position="0.65 1.4 -1.85"
+        scale="0.5 0.5 0.5"
+        align="center"></a-text>
 
 <!-- CALCULATE -->
 <a-box id="calcBtn" class="clickable"
@@ -62,14 +113,12 @@
        width="0.7"
        height="0.2"
        depth="0.1"
-       color="#3498db">
-</a-box>
+       color="#3498db"></a-box>
 
 <a-text value="CALCULATE"
-        position="0 1.1 -1.9"
+        position="0 1.1 -1.85"
         align="center"
-        scale="0.4 0.4 0.4">
-</a-text>
+        scale="0.4 0.4 0.4"></a-text>
 
 <!-- RESULT -->
 <a-text id="resultText"
@@ -77,8 +126,7 @@
         position="0 0.8 -2"
         align="center"
         color="yellow"
-        scale="0.5 0.5 0.5">
-</a-text>
+        scale="0.5 0.5 0.5"></a-text>
 
 </a-scene>
 
@@ -105,19 +153,6 @@ document.getElementById("calcBtn").addEventListener("click",()=>{
 let calories=10*weight+6.25*height-5*age+5;
 document.getElementById("resultText")
 .setAttribute("value","Calories: "+Math.round(calories));
-});
-    document.querySelectorAll(".clickable").forEach(el => {
-    el.addEventListener("mouseenter", () => {
-        el.setAttribute("scale", "1.1 1.1 1.1");
-    });
-
-    el.addEventListener("mouseleave", () => {
-        el.setAttribute("scale", "1 1 1");
-    });
-
-    el.addEventListener("click", () => {
-        console.log("CLICK WORKS");
-    });
 });
 
 </script>
